@@ -1,7 +1,7 @@
-package jm.task.core.jdbc.dao;
+package jm.task.core.hibernate.dao;
 
-import jm.task.core.jdbc.model.User;
-import jm.task.core.jdbc.util.Util;
+import jm.task.core.hibernate.model.User;
+import jm.task.core.hibernate.util.Util;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -84,7 +84,7 @@ public class UserDaoJDBCImpl implements UserDao {
             }
             return users;
         } catch (SQLException e) {
-            System.err.println("Ошибка при очистке таблицы users: " + e.getMessage());
+            System.err.println("Ошибка при получении пользователей " + e.getMessage());
             return List.of();
         }
     }
