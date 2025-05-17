@@ -6,6 +6,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class UserDaoHibernateImpl implements UserDao {
     private static final SessionFactory sessionFactory = Util.getSessionFactory();
@@ -20,6 +22,8 @@ public class UserDaoHibernateImpl implements UserDao {
     private static final String DROP_USERS_TABLE_SQL = """
             DROP TABLE IF EXISTS users;
             """;
+
+    private static final Logger logger = Logger.getLogger(UserDaoHibernateImpl.class.getName());
 
     public UserDaoHibernateImpl() {
 
@@ -37,8 +41,7 @@ public class UserDaoHibernateImpl implements UserDao {
             if (session != null && session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
             }
-            System.err.println("Ошибка при создании таблицы users: " + e.getMessage());
-
+            logger.log(Level.SEVERE, "Ошибка при создании таблицы users: ", e);
         }
     }
 
@@ -54,7 +57,7 @@ public class UserDaoHibernateImpl implements UserDao {
             if (session != null && session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
             }
-            System.err.println("Ошибка при удалении таблицы users: " + e.getMessage());
+            logger.log(Level.SEVERE, "Ошибка при удалении таблицы users: ", e);
 
         }
     }
@@ -71,7 +74,7 @@ public class UserDaoHibernateImpl implements UserDao {
             if (session != null && session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
             }
-            System.err.println("Ошибка при сохранении пользователя: " + e.getMessage());
+            logger.log(Level.SEVERE, "Ошибка при сохранении пользователя: ", e);
 
         }
     }
@@ -88,7 +91,7 @@ public class UserDaoHibernateImpl implements UserDao {
             if (session != null && session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
             }
-            System.err.println("Ошибка при удалении пользователя по id: " + e.getMessage());
+            logger.log(Level.SEVERE, "Ошибка при удалении пользователя по id: ", e);
 
         }
     }
@@ -106,7 +109,7 @@ public class UserDaoHibernateImpl implements UserDao {
             if (session != null && session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
             }
-            System.err.println("Ошибка при получении пользователей " + e.getMessage());
+            logger.log(Level.SEVERE, "Ошибка при получении всех пользователей: ", e);
             return List.of();
         }
     }
@@ -123,8 +126,7 @@ public class UserDaoHibernateImpl implements UserDao {
             if (session != null && session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
             }
-            System.err.println("Ошибка при очистке таблицы users: " + e.getMessage());
-
+            logger.log(Level.SEVERE, "Ошибка при очистке таблицы users: ", e);
         }
     }
 }
