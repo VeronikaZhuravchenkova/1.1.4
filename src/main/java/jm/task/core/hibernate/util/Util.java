@@ -12,6 +12,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public final class Util {
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
@@ -20,6 +22,7 @@ public final class Util {
     private static final String PASSWORD = "veronika";
     private static Connection connection;
     private static SessionFactory sessionFactory;
+    private static final Logger logger = Logger.getLogger(Util.class.getName());
 
     private Util() {
     }
@@ -36,7 +39,7 @@ public final class Util {
             try {
                 connection.close();
             } catch (SQLException e) {
-                System.err.println("Ошибка при закрытии соединения: " + e.getMessage());
+                logger.log(Level.SEVERE, "Ошибка при закрытии соединения: ", e);
             }
         }
     }
