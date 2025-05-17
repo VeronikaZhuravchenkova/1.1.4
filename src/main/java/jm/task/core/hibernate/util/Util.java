@@ -71,7 +71,7 @@ public final class Util {
 
                 sessionFactory = configuration.buildSessionFactory(serviceRegistry);
             } catch (Exception e) {
-                e.printStackTrace();
+                logger.log(Level.SEVERE, "ошибка при получении sessionFactory: ", e);
             }
         }
         return sessionFactory;
